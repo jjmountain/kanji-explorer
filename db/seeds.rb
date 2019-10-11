@@ -20,14 +20,40 @@ kanji = JSON.parse(File.read(kanji_filepath))
 
 puts "Creating Kanji from JSON"
 
+# see if english array is empty - if it is give it a value of empty string
+# if it is not empty see if it has <br> in it, if not skip the array step and go straight to making a hash
+
+
+def generate_entry_hash(str_entry)
+  # check for a line break, if present split to an array on entries, then break into hash between colons
+  if str_entry.include?('<br>')
+    entry_array = str_entry.split(/\<\/?br>/)
+    entry_array.each do |example|
+      split_array = example.split(':', 2)
+      entry_hash[split_array[0]] = split_array[1]
+    end
+  elsif !str_entry.empty?
+    str_entry.split(':', 2)
+    entry_hash[split_array[0]] = split_array[1]
+  else
+    entry_hash = ''
+  end
+  entry_hash
+end
+
 kanji["notes"].each do |note|
+  
+  examples_hash = generate_entry_hash(note["fields"][5])
+  components_hash = generate_entry_hash(note["fields"][9])
+
+
   Kanji.create!(
     character: note["fields"][0],
     onyomi: note["fields"][1],
     kunyomi: note["fields"][2],
     nanori: note["fields"][3],
-    english: note["fields"][4],
-    examples: note["fields"][5],
+    english: english_array,
+    examples: examples_hash || '',
     jlpt: note["fields"][6],
     jouyou: note["fields"][7],
     frequency: note["fields"][8],

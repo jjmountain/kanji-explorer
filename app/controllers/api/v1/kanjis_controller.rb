@@ -1,6 +1,10 @@
 class Api::V1::KanjisController < ApplicationController
   def index
-    kanjis = Kanji.all
+    if params[:query].present?
+      kanjis = Kanji.search_by_term(params[:query])
+    else
+      kanjis = Kanji.first(10)
+    end
     render json: kanjis
   end
 
