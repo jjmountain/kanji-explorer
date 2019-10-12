@@ -1,6 +1,6 @@
 
 .jumbotron {
-  background-color: #f8ff7791;
+  background-color: whitesmoke;
 }
 
 /* The flip card container - set the width and height to whatever you want. We have added the border property to demonstrate that the flip itself goes out of the box on hover (remove perspective if you don't want the 3D effect */
@@ -35,6 +35,7 @@
   width: 100%;
   height: 100%;
   backface-visibility: hidden;
+  background-color: ivory;
 }
 
 /* Style the front side (fallback if image is missing) */
@@ -66,7 +67,7 @@
 }
 
 .front-english {
-  color: grey;
+  color: indianred;
   display: flex;
   flex-grow: 1;
 }
@@ -90,5 +91,55 @@
   display: flex;
   justify-content: space-between;
   padding: 15px;
-  color: dimgray;
+}
+
+.list-item-info {
+  list-style-type: none;
+}
+
+.example-kanji {
+  font-size: 1.5rem;
+  white-space: nowrap;
+}
+
+.example-reading {
+  font-size: 1rem;
+  white-space: nowrap;
+  color: black;
+  font-weight: lighter;
+}
+
+.examples-container {
+}
+
+.example-english {
+  color: steelblue;
+  font-size: 1rem;
+  font-weight: 200;
+}
+
+.back-kanji {
+  font-size: 2rem;
+  padding: 0.3rem 0.8rem;
+}
+
+.kanji-reading {
+  font-size: 0.8rem;
+  color: gray;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  font-weight: ligher;
+}
+
+.kanji-table {
+  /* border: 1px dashed grey; */
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  min-width: 110px;
+}
+
+.jlpt-info {
+  color: indianred;
+  font-size: 1.5rem;
+  padding-right: 1rem;
 }
