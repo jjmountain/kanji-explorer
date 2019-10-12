@@ -1,5 +1,12 @@
 class Kanji < ApplicationRecord
   include PgSearch
+  serialize :examples, JSON
+  serialize :english, JSON
+  serialize :components, JSON
+  serialize :nanori, JSON
+  serialize :onyomi, JSON
+  serialize :kunyomi, JSON
+
 
   pg_search_scope :search_by_term, against: [ 
   [:character, 'A'], 

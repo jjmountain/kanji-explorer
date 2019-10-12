@@ -23,41 +23,91 @@ puts "Creating Kanji from JSON"
 # see if english array is empty - if it is give it a value of empty string
 # if it is not empty see if it has <br> in it, if not skip the array step and go straight to making a hash
 
+def replace_double_with_single_quote(str_entry)
+  str_entry.gsub!(/\"/, "\'")
+  if str_entry.include?("“")
+    str_entry.gsub!(/“/, "\'")
+    str_entry.gsub!(/”/, "\'")
+  end
+  return str_entry
+end
 
-def generate_entry_hash(str_entry)
+def generate_components_hash(str_entry)
   # check for a line break, if present split to an array on entries, then break into hash between colons
+  entry_hash = {}
   if str_entry.include?('<br>')
     entry_array = str_entry.split(/\<\/?br>/)
     entry_array.each do |example|
       split_array = example.split(':', 2)
-      entry_hash[split_array[0]] = split_array[1]
+      entry_hash[split_array[0]] = split_array[1].strip
     end
   elsif !str_entry.empty?
-    str_entry.split(':', 2)
-    entry_hash[split_array[0]] = split_array[1]
+    split_array = str_entry.split(':', 2)
+    entry_hash[split_array[0]] = split_array[1].strip
   else
     entry_hash = ''
   end
   entry_hash
 end
 
+## str_entry is a string with lots of examples. each example is separated by <br>
+
+def generate_examples_hash(str_entry)
+  examples_hash = {}
+  if str_entry.include?('<br')
+    examples_array = str_entry.split(/\<\/?br ?\/?>/)
+    examples_array.each do |example|
+      split_array = example.split(':', 2)
+      kanji_str = split_array[0].gsub(/\(.+\)/, '')
+      examples_hash[kanji_str] = build_reading_hash(example)
+    end
+  elsif !str_entry.empty?
+    split_array = str_entry.split(':', 2)
+    kanji_str = split_array[0].gsub(/\(.+\)/, '')
+    examples_hash[kanji_str] = build_reading_hash(str_entry)
+  else
+    examples_hash = ''
+  end
+  return examples_hash
+end
+
+## this method takes an example string (kanji / english meaning pair) 
+## and returns an embedder hash of structure (Kanji: (reading: english))
+def build_reading_hash(example)
+  reading_hash = {}
+  mod_example = replace_double_with_single_quote(example)
+  split_array = mod_example.split(':', 2)
+  split_array[1].strip!
+  english_array = split_array[1].split(/\([0-9]+\)/)
+  english_array.map! { |entry| entry.strip }
+  english_array.delete("")
+  reading_str = split_array[0].split(/\(/)[1].delete(')')
+  reading_hash[reading_str] = english_array
+  return reading_hash
+end
+
+def generate_entry_array(str_entry)
+  str_entry.split(',')
+end
+
+def generate_entry_array_japanese_comma(str_entry)
+  str_entry.split('、')
+end
+
+
+
 kanji["notes"].each do |note|
-  
-  examples_hash = generate_entry_hash(note["fields"][5])
-  components_hash = generate_entry_hash(note["fields"][9])
-
-
   Kanji.create!(
     character: note["fields"][0],
-    onyomi: note["fields"][1],
-    kunyomi: note["fields"][2],
-    nanori: note["fields"][3],
-    english: english_array,
-    examples: examples_hash || '',
+    onyomi: generate_entry_array_japanese_comma(note["fields"][1]),
+    kunyomi: generate_entry_array_japanese_comma(note["fields"][2]),
+    nanori: generate_entry_array(note["fields"][3]),
+    english: generate_entry_array(note["fields"][4]),
+    examples: generate_examples_hash(note["fields"][5]),
     jlpt: note["fields"][6],
     jouyou: note["fields"][7],
     frequency: note["fields"][8],
-    components: note["fields"][9],
+    components: generate_components_hash(note["fields"][9]),
     kanji_strokes: note["fields"][10],
     kanji_radical: note["fields"][11],
     radical_number: note["fields"][12],
@@ -65,8 +115,8 @@ kanji["notes"].each do |note|
     traditional: note["fields"][15],
     classification: note["fields"][16],
     keyword: note["fields"][17],
-    koohii1: note["fields"][18],
-    koohii2: note["fields"][19],
+    koohii1: replace_double_with_single_quote(note["fields"][18]),
+    koohii2: replace_double_with_single_quote(note["fields"][19]),
     rtk: note["fields"][20]
   )
 end
