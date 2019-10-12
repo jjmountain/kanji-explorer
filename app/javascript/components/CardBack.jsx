@@ -9,7 +9,6 @@ class CardBack extends Component {
     function createMarkup(html) {
       return {__html: html};
     }
-
     return (
       <div className='flip-card-back'>
         <div className="card-content">
@@ -18,10 +17,8 @@ class CardBack extends Component {
           <div>{kanji.frequency < 1000 ? 'common' : 'rare'}</div>
           <div>N{kanji.jlpt}</div>
         </div>
-        
-          <h1 className='back-kanji'>{kanji.character}</h1>
-          <p>{kanji.english}</p>
           <ul>
+          <li className='kanji-details'>{Object.keys(kanji.examples)}</li>
           <li className='kanji-details'>{kanji.onyomi}</li>
           <li className='kanji-details'>{kanji.kunyomi}</li>
           <li className='kanji-details'><div dangerouslySetInnerHTML={createMarkup(kanji.components)} /></li>
