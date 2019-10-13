@@ -13,22 +13,9 @@ class KanjiList extends Component {
      };
   }
 
-  componentDidMount() {
-    const url = "/api/v1/kanjis/index";
-    fetch(url)
-      .then(response => {
-        if (response.ok) {
-          return response.json();
-        }
-        throw new Error("Network response was not ok.");
-      })
-      .then(response => this.setState({ kanjis: response }))
-      .catch(() => this.props.history.push("/"));
-  }
-
   render() {
     
-    const { kanjis } = this.state;
+    const kanjis = this.props.kanjis;
 
     // store all the kanjis in state
 

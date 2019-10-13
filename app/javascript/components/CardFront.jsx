@@ -8,7 +8,7 @@ class CardFront extends Component {
       <div className='flip-card-front' >
         <div className="card-content">
           <h1 className="front-kanji">{kanji.character}</h1>
-          <h2 className='front-english lead'>{kanji.english}</h2>
+          <h2 className='front-english lead'>{kanji.keyword}</h2>
         </div>
       </div>
      );
