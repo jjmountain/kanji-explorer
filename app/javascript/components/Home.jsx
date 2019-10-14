@@ -1,16 +1,22 @@
 import React, { Component } from 'react';
 import KanjiList from './KanjiList';
 import axios from 'axios';
+import { search } from './utils'
+
 
 class Home extends Component {
   constructor(props) {
     super(props);
-    this.state = { 
+    this.state = {
+      query: '' 
       kanjis: [],
       loading: false,
-      value: ''
-     }
+      message: ''
+     };
+     this.cancel = '';
   }
+
+  // when home component loads fetch from index and set state of kanjis to response
 
    componentDidMount() {
       const url = `/api/v1/kanjis/index/${this.state.value}`;
@@ -25,19 +31,58 @@ class Home extends Component {
         .catch(() => this.props.history.push("/"));
     }
 
-    search = async val => {
-      this.setState({ loading: true });
-      const res = await axios(
-        `/api/v1/kanjis/index/${val}`
-      );
-      const kanjis = await res.data;
-    
-      this.setState({ kanjis, loading: false });
-    };
+    fetchSearchResults = async (updatedPageNumber = '', val) => {
+
+      const pageNumber = updatedPageNumber ? `&page=${updatedPageNumber}` : '';
+
+      const searchUrl = `/api/v1/kanjis/index/${val}${pageNumber}`;
+
+      if (this.cancel) {
+        // Cancel the previous request before making a new request
+        this.cancel.cancel();
+      }
+      // Create a new CancelToken
+      this.cancel = axios.CancelToken.source();
+
+      axios.get(searchUrl, {
+        cancelToken: this.cancel.token,
+      })
+      .then((res) => {
+        const resultNotFoundMsg = 
+        !res.data.hits.length ? 'There are no more search results. Please try a new search.' : '';
+        this.setState({ 
+          loading: false,
+          message: resultNotFoundMsg,
+          kanjis: res.data 
+         });
+      })
+      .catch((error) => {
+        if (axios.isCancel(error) || error) {
+          this.setState({
+            loading: false,
+            message: 'Failed to fetch results. Please check network.'
+          });
+        }
+      });
+      };
 
   handleChange = async e => {
-    this.search(e.target.value);
-    this.setState({ value: e.target.value });
+    const query = e.target.value
+
+    if ( ! query) {
+      this.setState({
+        query,
+        message: ''
+      });
+    } else {
+      this.setState({
+        query,
+        loading: true,
+        message: ''
+      }, () => {
+        this.fetchSearchResults(1, query);
+      });
+    }
   };
 
   render() { 

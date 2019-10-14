@@ -10,13 +10,11 @@ class CardBack extends Component {
     // this is an array of the example kanji entries
     const kanjiArray = Object.keys(kanji.examples)
 
-    console.log(kanjiArray)
 
 
     // this is an array of the hashes which have hiragana - english key-value pairs
     const nestedHash = Object.values(kanji.examples)
 
-    console.log(nestedHash)
 
 
     // get the hiragana string for each example

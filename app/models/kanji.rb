@@ -10,8 +10,6 @@ class Kanji < ApplicationRecord
 
   pg_search_scope :search_by_term, against: [ 
   [:character, 'A'], 
-  [:koohii1, 'C'], 
-  [:koohii2, 'C'], 
   [:onyomi, 'B'], 
   [:kunyomi, 'B'], 
   [:english, 'A'], 
@@ -22,7 +20,7 @@ class Kanji < ApplicationRecord
     using: {
       tsearch: {
         any_word: true,
-        prefix: true
+        prefix: false
       }
     }
 end
