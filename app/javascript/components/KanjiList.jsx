@@ -14,7 +14,7 @@ class KanjiList extends Component {
   }
 
   renderSearchResults() {
-    const kanjis = this.props.kanjis;
+    const kanjis = this.props.kanjis; 
 
     if (Object.keys(kanjis).length && kanjis.length) {
       const allKanjis = kanjis.map((kanji, index) => (
