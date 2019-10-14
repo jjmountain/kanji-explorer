@@ -13,24 +13,21 @@ class KanjiList extends Component {
      };
   }
 
-  render() {
-    
+  renderSearchResults() {
     const kanjis = this.props.kanjis;
 
-    // store all the kanjis in state
-
-    // render all the cards front and back
-    const allKanjis = kanjis.map((kanji, index) => (
-      <div key={index} className='col-md-6 col-lg-4'>
-          <div className="flip-card">
-            <div className="flip-card-inner">
-              <CardFront kanji={kanji} />
-              <CardBack  kanji={kanji} />
+    if (Object.keys(kanjis).length && kanjis.length) {
+      const allKanjis = kanjis.map((kanji, index) => (
+        <div key={index} className='col-md-6 col-lg-4'>
+            <div className="flip-card">
+              <div className="flip-card-inner">
+                <CardFront kanji={kanji} />
+                <CardBack  kanji={kanji} />
+              </div>
             </div>
-          </div>
-      </div>
-    ))
-    return (
+        </div>
+      ));
+      return (
       <div className="py-5">
         <div className="container">
           <div className="row">
@@ -38,6 +35,15 @@ class KanjiList extends Component {
           </div>
         </div>
       </div>
+      )
+    };
+  };
+
+  render() { 
+    return (
+      <>
+        {this.renderSearchResults}
+      </>
      );
   }
 }
