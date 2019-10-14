@@ -11,7 +11,8 @@ class Home extends Component {
       query: '', 
       kanjis: [],
       loading: false,
-      message: ''
+      meta: '',
+      resultsMessage: ''
      };
      this.cancel = '';
   }
@@ -19,7 +20,7 @@ class Home extends Component {
   // when home component loads fetch from index and set state of kanjis to response
 
    componentDidMount() {
-      const url = `/api/v1/kanjis/index/${this.state.value}`;
+      const url = `/api/v1/kanjis/index/${this.state.query}`;
       fetch(url)
         .then(response => {
           if (response.ok) {
@@ -27,13 +28,14 @@ class Home extends Component {
           }
           throw new Error("Network response was not ok.");
         })
-        .then(response => this.setState({ kanjis: response }))
+        .then(response => this.setState({ kanjis: response.objects }))
         .catch(() => this.props.history.push("/"));
     }
 
+
     fetchSearchResults = async (updatedPageNumber = '', val) => {
 
-      const pageNumber = updatedPageNumber ? `&page=${updatedPageNumber}` : '';
+      const pageNumber = updatedPageNumber ? `?page=${updatedPageNumber}` : '';
 
       const searchUrl = `/api/v1/kanjis/index/${val}${pageNumber}`;
 
@@ -49,18 +51,31 @@ class Home extends Component {
       })
       .then((res) => {
         const resultNotFoundMsg = 
-        !res.data.hits.length ? 'There are no more search results. Please try a new search.' : '';
+        !res.data.objects.length ? 'There are no search results. Please try a new search.' : '';
         this.setState({ 
           loading: false,
           message: resultNotFoundMsg,
-          kanjis: res.data 
+          kanjis: res.data.objects,
+          meta: res.data.meta,
+          resultsMessage: res.data.meta.total_count　=== 1 ? 
+          `Found ${res.data.meta.total_count} result for ${this.state.query}` : 
+          `Found ${res.data.meta.total_count} results for ${this.state.query}`
          });
+         console.log('first then')
+      })
+      .then((res) => {
+        const resultsNum = res.data.meta.total_count
+        console.log('here')
+        this.setState(
+          {
+          resultsMessage: `Found ${resultsNum} results`
+        });
       })
       .catch((error) => {
         if (axios.isCancel(error) || error) {
           this.setState({
             loading: false,
-            message: 'Failed to fetch results. Please check network.'
+            message: '`Failed to fetch results. Please check network. ${error.message}`'
           });
         }
       });
@@ -85,23 +100,32 @@ class Home extends Component {
     }
   };
 
+  displayPagination() {
+    if (this.state.meta.total_pages > 1) {
+      return (
+        this.state.meta.total<h5 className='py-3'>Found {this.state.meta.total_count} results for {this.state.query}</h5>
+      )
+    }
+  }
+
   render() { 
     return ( 
       <>
-    <div className='jumbotron'>
+    <div className='jumbotron text-center'>
       <h1 className="display-5">
-        Welcome to Kanji Explorer
+        Kanji LiveSearch
       </h1>
-      <p className="lead">
-        Use this site to explore all kinds of Japanese Kanji
-      </p>
       <input 
         value={this.state.value}
         onChange={e => this.handleChange(e)}
         placeholder="type something to search"
       />
     </div>
-    <KanjiList kanjis={this.state.kanjis}/>
+    <div className="container mb-5">
+      <div style={{height: '3rem'}}>{this.state.resultsMessage}</div>
+      {this.displayPagination()}
+      <KanjiList kanjis={this.state.kanjis} />
+    </div>
   </>
      );
   }

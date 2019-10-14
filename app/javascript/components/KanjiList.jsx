@@ -28,13 +28,9 @@ class KanjiList extends Component {
         </div>
       ));
       return (
-      <div className="py-5">
-        <div className="container">
-          <div className="row">
-            {allKanjis}
-          </div>
+        <div className="row">
+          {allKanjis}
         </div>
-      </div>
       )
     };
   };
@@ -42,7 +38,7 @@ class KanjiList extends Component {
   render() { 
     return (
       <>
-        {this.renderSearchResults}
+        {this.renderSearchResults()}
       </>
      );
   }
