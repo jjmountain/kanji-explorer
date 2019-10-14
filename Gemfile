@@ -28,6 +28,13 @@ gem 'jbuilder', '~> 2.5'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
+gem 'kaminari' 
+# gem 'pager_api'
+gem 'api-pagination'
+gem 'pagy'
+gem 'active_model_serializers'
+
+
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
 

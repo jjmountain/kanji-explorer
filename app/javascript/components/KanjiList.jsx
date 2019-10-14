@@ -18,6 +18,7 @@ class KanjiList extends Component {
     fetch(url)
       .then(response => {
         if (response.ok) {
+          console.log(response)
           return response.json();
         }
         throw new Error("Network response was not ok.");
