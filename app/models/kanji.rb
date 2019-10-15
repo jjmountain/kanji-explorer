@@ -45,13 +45,13 @@ class Kanji < ApplicationRecord
       any_word: true    }
   }
 
-  pg_search_scope :search_by_radical, against: [ :radical ],
+  pg_search_scope :search_by_radical, against: [ :kanji_radical ],
   using: {
     tsearch: {
       any_word: true    }
   }
 
-  pg_search_scope :search_by_example, against: [ :example ],
+  pg_search_scope :search_by_example, against: [ :examples ],
   using: {
     tsearch: {
       any_word: true,
