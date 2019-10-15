@@ -26,7 +26,7 @@ class CardBack extends Component {
 
 
     const examplesEntries = nestedHash.slice(0, 3).map((obj, index) => (
-      <>
+      <tbody key={index}>
         <tr>
           <td className='example-kanji pb-1'>{kanjiArray[index]}</td>
           <td className='example-reading pb-1 pl-4'>{Object.keys(obj)[0]}</td>
@@ -34,7 +34,7 @@ class CardBack extends Component {
         <tr>
           <td colSpan="2" className='example-english pb-3'>{obj[Object.keys(obj)[0]][0].split(';')[0]}</td>
         </tr>
-      </>
+      </tbody>
     ));
 
 
@@ -44,14 +44,16 @@ class CardBack extends Component {
         <div className="card-content">
           <div className="top-info">
             <table className='kanji-table'>
-              <tr>
-                <td rowSpan='2' className='back-kanji'>{kanji.character}</td>
-                <td className='kanji-reading'>{kanji.onyomi.slice(0,3).join(' | ')}</td>
-                <td rowSpan='2' className='jlpt-info'>N{kanji.jlpt}</td>
-              </tr>
-              <tr>
-                <td className='kanji-reading'>{kanji.kunyomi[0]}</td>
-              </tr>
+              <tbody>
+                <tr>
+                  <td rowSpan='2' className='back-kanji'>{kanji.character}</td>
+                  <td className='kanji-reading'>{kanji.onyomi.slice(0,3).join(' | ')}</td>
+                  <td rowSpan='2' className='jlpt-info'>N{kanji.jlpt}</td>
+                </tr>
+                <tr>
+                  <td className='kanji-reading'>{kanji.kunyomi[0]}</td>
+                </tr>
+              </tbody>
             </table>
           </div>
             <table>
