@@ -6,12 +6,6 @@ import CardBack from './CardBack';
 
 
 class KanjiList extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { 
-      kanjis: []
-     };
-  }
 
   renderSearchResults() {
     const kanjis = this.props.kanjis; 

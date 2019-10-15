@@ -1,18 +1,23 @@
 import React, { Component } from 'react';
 import KanjiList from './KanjiList';
 import axios from 'axios';
-import { search } from './utils'
 
 
 class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      query: '', 
+      query: '',
       kanjis: [],
+      character_matches: {},
+      reading_matches: {},
+      english_matches: {},
+      radical_matches: {},
+      example_matches: {},
       loading: false,
       meta: '',
-      resultsMessage: ''
+      resultsMessage: '',
+      message: ''
      };
      this.cancel = '';
   }
@@ -28,10 +33,9 @@ class Home extends Component {
           }
           throw new Error("Network response was not ok.");
         })
-        .then(response => this.setState({ kanjis: response.objects }))
+        .then(response => this.setState({ kanjis: response.kanjis}))
         .catch(() => this.props.history.push("/"));
     }
-
 
     fetchSearchResults = async (updatedPageNumber = '', val) => {
 
@@ -50,32 +54,32 @@ class Home extends Component {
         cancelToken: this.cancel.token,
       })
       .then((res) => {
-        const resultNotFoundMsg = 
-        !res.data.objects.length ? 'There are no search results. Please try a new search.' : '';
         this.setState({ 
           loading: false,
-          message: resultNotFoundMsg,
-          kanjis: res.data.objects,
-          meta: res.data.meta,
-          resultsMessage: res.data.meta.total_count　=== 1 ? 
-          `Found ${res.data.meta.total_count} result for ${this.state.query}` : 
-          `Found ${res.data.meta.total_count} results for ${this.state.query}`
+          character_matches: {
+            kanji: res.data.character_matches.kanjis,
+            meta: res.data.character_matches.meta
+          },
+          reading_matches: {
+            kanji: res.data.reading_matches.kanjis,
+            meta: res.data.reading_matches.meta
+          },
+          english_matches: {
+            kanji: res.data.english_matches.kanjis,
+            meta: res.data.english_matches.meta
+          },
+          example_matches: {
+            kanji: res.data.example_matches.kanjis,
+            meta: res.data.example_matches.meta
+          }
          });
-         console.log('first then')
-      })
-      .then((res) => {
-        const resultsNum = res.data.meta.total_count
-        console.log('here')
-        this.setState(
-          {
-          resultsMessage: `Found ${resultsNum} results`
-        });
+        console.log(res.data)
       })
       .catch((error) => {
         if (axios.isCancel(error) || error) {
           this.setState({
             loading: false,
-            message: '`Failed to fetch results. Please check network. ${error.message}`'
+            message: `Failed to fetch results. Please check network. ${error.message}`
           });
         }
       });
@@ -83,7 +87,6 @@ class Home extends Component {
 
   handleChange = async e => {
     const query = e.target.value
-
     if ( ! query) {
       this.setState({
         query,
@@ -100,14 +103,6 @@ class Home extends Component {
     }
   };
 
-  displayPagination() {
-    if (this.state.meta.total_pages > 1) {
-      return (
-        this.state.meta.total<h5 className='py-3'>Found {this.state.meta.total_count} results for {this.state.query}</h5>
-      )
-    }
-  }
-
   render() { 
     return ( 
       <>
@@ -122,8 +117,6 @@ class Home extends Component {
       />
     </div>
     <div className="container mb-5">
-      <div style={{height: '3rem'}}>{this.state.resultsMessage}</div>
-      {this.displayPagination()}
       <KanjiList kanjis={this.state.kanjis} />
     </div>
   </>
