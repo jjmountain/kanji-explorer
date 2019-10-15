@@ -147,3 +147,13 @@
 .search-results {
   
 }
+.search-input {
+  height: 3rem;
+  width: 395px;
+  text-align: center;
+  outline: none;
+  box-sizing: border-box;
+  font-style: italic;
+  font-size: 1.5rem;
+  padding: 1.5rem;
+}

@@ -32,7 +32,6 @@ class Kanji < ApplicationRecord
   using: {
     tsearch: {
       any_word: true,
-      prefix: true
     }
   }
 

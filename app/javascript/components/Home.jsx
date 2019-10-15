@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSearch, spinner } from '@fortawesome/free-solid-svg-icons'
 import KanjiList from './KanjiList';
 import axios from 'axios';
+import './Home.css';
 
 
 class Home extends Component {
@@ -109,19 +112,24 @@ class Home extends Component {
   };
 
   render() { 
+    const searchIcon = <FontAwesomeIcon icon={faSearch} className='search-icon'/>
     const { kanjis, character_matches, reading_matches, example_matches, english_matches } = this.state
     return ( 
       <>
     <div className='jumbotron text-center'>
       <h1 className="display-5">
-        Kanji LiveSearch
+        Kanji LiveSearch 
       </h1>
+      <label className="search-label" htmlFor="search-input">
       <input 
         value={this.state.value}
         onChange={e => this.handleChange(e)}
-        placeholder="type something to search"
-      />
+        className='mt-4 search-input'
+        placeholder='english / japanese'
+      /> {searchIcon}
+      </label>
     </div>
+
     <div className="container mb-5">
       <KanjiList 
         characters={character_matches} 
@@ -130,6 +138,7 @@ class Home extends Component {
         english={english_matches}
       />
     </div>
+
   </>
      );
   }
