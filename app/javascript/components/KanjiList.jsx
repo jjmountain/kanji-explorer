@@ -6,36 +6,71 @@ import CardBack from './CardBack';
 
 
 class KanjiList extends Component {
+  
+  
+  renderSearchResults(matches, matchType) {
 
-  renderSearchResults() {
-    const kanjis = this.props.kanjis; 
-
-    if (Object.keys(kanjis).length && kanjis.length) {
-      const allKanjis = kanjis.map((kanji, index) => (
-        <div key={index} className='col-md-6 col-lg-4'>
-            <div className="flip-card">
-              <div className="flip-card-inner">
-                <CardFront kanji={kanji} />
-                <CardBack  kanji={kanji} />
-              </div>
-            </div>
+    if (Object.keys(matches).length && Object.keys(matches.kanji).length) {
+      const kanjisToRender = matches.kanji.map(kanji => (
+        <div key={kanji.id} className='col-md-6 col-lg-4'>
+          <div className="flip-card">
+            <div className="flip-card-inner">
+              <CardFront kanji={kanji} />
+              <CardBack  kanji={kanji} />
+           </div>
+         </div>
         </div>
       ));
       return (
-        <div className="row">
-          {allKanjis}
-        </div>
+        <>
+        <h4 className='pb-4'>Found by {matchType}</h4>
+          <div className="row">
+            {kanjisToRender}
+          </div>
+        </>
       )
-    };
+    }
+  }
+
+
+    //
+
+    // if (Object.keys(kanjis).length && kanjis.length) {
+    //   const allKanjis = kanjis.map((kanji, index) => (
+    //     <div key={index} className='col-md-6 col-lg-4'>
+    //         <div className="flip-card">
+    //           <div className="flip-card-inner">
+    //             <CardFront kanji={kanji} />
+    //             <CardBack  kanji={kanji} />
+    //           </div>
+    //         </div>
+    //     </div>
+    //   ));
+    //   return (
+    //     <div className="row">
+    //       {allKanjis}
+    //     </div>
+    //   )
+    // };
+
+    render() { 
+      const { kanjis, characters, readings, examples, english } = this.props;
+
+      // console.log(characters, readings, examples, english)
+      return (
+        <>
+          {this.renderSearchResults(characters, 'character')}
+          {this.renderSearchResults(readings, 'readings')}
+          {this.renderSearchResults(examples, 'examples')}
+          {this.renderSearchResults(english, 'keyword')}
+        </>
+       );
+    }
+
+    
   };
 
-  render() { 
-    return (
-      <>
-        {this.renderSearchResults()}
-      </>
-     );
-  }
-}
+
+  
  
 export default KanjiList;

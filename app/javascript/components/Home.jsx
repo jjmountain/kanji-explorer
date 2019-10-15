@@ -8,14 +8,16 @@ class Home extends Component {
     super(props);
     this.state = {
       query: '',
-      kanjis: [],
+      all_kanjis: {
+        kanjis: {},
+        meta: {}
+      },
       character_matches: {},
       reading_matches: {},
       english_matches: {},
       radical_matches: {},
       example_matches: {},
       loading: false,
-      meta: '',
       resultsMessage: '',
       message: ''
      };
@@ -24,18 +26,22 @@ class Home extends Component {
 
   // when home component loads fetch from index and set state of kanjis to response
 
-   componentDidMount() {
-      const url = `/api/v1/kanjis/index/${this.state.query}`;
-      fetch(url)
-        .then(response => {
-          if (response.ok) {
-            return response.json();
-          }
-          throw new Error("Network response was not ok.");
-        })
-        .then(response => this.setState({ kanjis: response.kanjis}))
-        .catch(() => this.props.history.push("/"));
-    }
+  //  componentDidMount() {
+  //     const url = `/api/v1/kanjis/index/${this.state.query}`;
+  //     fetch(url)
+  //       .then(response => {
+  //         if (response.ok) {
+  //           return response.json();
+  //         }
+  //         throw new Error("Network response was not ok.");
+  //       })
+  //       .then(response => this.setState({ 
+  //         all_kanjis: {
+  //           kanjis: response.kanjis,
+  //           meta: response.meta
+  //         }})
+  //       .catch(() => this.props.history.push("/"));
+  //   }
 
     fetchSearchResults = async (updatedPageNumber = '', val) => {
 
@@ -73,7 +79,6 @@ class Home extends Component {
             meta: res.data.example_matches.meta
           }
          });
-        console.log(res.data)
       })
       .catch((error) => {
         if (axios.isCancel(error) || error) {
@@ -104,6 +109,7 @@ class Home extends Component {
   };
 
   render() { 
+    const { kanjis, character_matches, reading_matches, example_matches, english_matches } = this.state
     return ( 
       <>
     <div className='jumbotron text-center'>
@@ -117,7 +123,12 @@ class Home extends Component {
       />
     </div>
     <div className="container mb-5">
-      <KanjiList kanjis={this.state.kanjis} />
+      <KanjiList 
+        characters={character_matches} 
+        readings={reading_matches}
+        examples={example_matches}
+        english={english_matches}
+      />
     </div>
   </>
      );

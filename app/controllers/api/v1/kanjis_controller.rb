@@ -5,11 +5,8 @@ class Api::V1::KanjisController < ApplicationController
       reading_matches = Kanji.search_by_reading(params[:query]).page(params[:page] ? params[:page].to_i : 1)
       english_matches = Kanji.search_by_english(params[:query]).page(params[:page] ? params[:page].to_i : 1)
       example_matches = Kanji.search_by_example(params[:query]).page(params[:page] ? params[:page].to_i : 1)
-      kanjis = Kanji.all.order(id: :asc).page(params[:page] ? params[:page].to_i : 1)
 
       render json: {
-        kanjis: kanjis,
-        meta: pagination_meta(kanjis),
         character_matches: {
           kanjis: character_matches,
           meta: pagination_meta(character_matches),
