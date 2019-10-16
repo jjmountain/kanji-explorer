@@ -49,9 +49,14 @@ GEM
       tzinfo (~> 1.1)
     api-pagination (4.8.2)
     arel (9.0.0)
+    autoprefixer-rails (9.6.5)
+      execjs
     bindex (0.8.1)
     bootsnap (1.4.5)
       msgpack (~> 1.0)
+    bootstrap-sass (3.4.1)
+      autoprefixer-rails (>= 5.2.1)
+      sassc (>= 2.0.0)
     builder (3.2.3)
     byebug (11.0.1)
     case_transform (0.2)
@@ -197,6 +202,7 @@ DEPENDENCIES
   active_model_serializers
   api-pagination
   bootsnap (>= 1.1.0)
+  bootstrap-sass
   byebug
   font-awesome-sass
   jbuilder (~> 2.5)

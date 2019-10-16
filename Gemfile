@@ -35,6 +35,8 @@ gem 'kaminari'
 gem 'api-pagination'
 gem 'pagy'
 gem 'active_model_serializers'
+gem 'bootstrap-sass'
+
 
 
 # Use ActiveStorage variant
