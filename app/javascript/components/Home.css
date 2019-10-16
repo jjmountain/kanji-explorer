@@ -1,10 +1,35 @@
-<link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
-
 
 .search-input {
-  height: 2rem;
+  height: 3rem;
+  width: 250px;
+  text-align: center;
+  outline: none;
+  box-sizing: border-box;
+  /* font-style: italic; */
+  font-size: 1rem;
+  padding-left: 1rem;
+  text-indent: -20px;
 }
+
+.jumbotron {
+  padding: 2rem;
+}
+
+h1 {
+  font-weight: 200;
+}
+
 
 .search-icon {
   color: grey;
+  font-size: 12px;
+}
+
+.search-input-container { position: relative; width: inherit; }
+
+.search-input-container .fa-search { 
+  position: absolute;
+  top: 42px;
+  left: 14px;
+  font-size: 12px;
 }

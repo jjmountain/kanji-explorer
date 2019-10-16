@@ -25,7 +25,7 @@
 }
 
 /* Do an horizontal flip when you move the mouse over the flip box container */
-.flip-card:hover .flip-card-inner {
+.flip-card:hover .flip-card-inner, .flip-card:active .flip-card-inner {
   transform: rotateY(180deg);
 }
 
@@ -67,7 +67,7 @@
 }
 
 .front-english {
-  color: indianred;
+  color: steelblue;
   display: flex;
   flex-grow: 1;
 }
@@ -146,14 +146,4 @@
 
 .search-results {
   
-}
-.search-input {
-  height: 3rem;
-  width: 395px;
-  text-align: center;
-  outline: none;
-  box-sizing: border-box;
-  font-style: italic;
-  font-size: 1.5rem;
-  padding: 1.5rem;
 }

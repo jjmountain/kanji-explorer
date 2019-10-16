@@ -21,9 +21,25 @@ class KanjiList extends Component {
          </div>
         </div>
       ));
+
+      switch(matchType) {
+        case 'characters':
+          break;
+        case 'readings':
+          break;
+        case 'examples':
+
+          break;
+        case 'keyword':
+          break;
+      }
+    
       return (
-        <>
-        <h4 className='pb-4 d-flex justify-content-center'>{kanjisToRender.length} kanji found in {matchType}</h4>
+        <><div className="d-flex justify-content-center">
+          
+
+        </div>
+        <h5 className='pb-4 d-flex justify-content-center'>{matches.meta.total_count} kanji found in {matchType}</h5>
           <div className="row">
             {kanjisToRender}
           </div>

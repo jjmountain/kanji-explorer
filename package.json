@@ -15,7 +15,8 @@
     "prop-types": "^15.7.2",
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
-    "react-router-dom": "^5.1.2"
+    "react-router-dom": "^5.1.2",
+    "typed.js": "^2.0.11"
   },
   "devDependencies": {
     "webpack-dev-server": "^3.8.2"

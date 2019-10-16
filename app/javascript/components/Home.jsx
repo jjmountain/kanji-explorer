@@ -4,6 +4,7 @@ import { faSearch, spinner } from '@fortawesome/free-solid-svg-icons'
 import KanjiList from './KanjiList';
 import axios from 'axios';
 import './Home.css';
+import Typed from 'typed.js';
 
 
 class Home extends Component {
@@ -112,22 +113,24 @@ class Home extends Component {
   };
 
   render() { 
+
     const searchIcon = <FontAwesomeIcon icon={faSearch} className='search-icon'/>
-    const { kanjis, character_matches, reading_matches, example_matches, english_matches } = this.state
+    const { kanjis, character_matches, reading_matches, example_matches, english_matches, query } = this.state
     return ( 
       <>
-    <div className='jumbotron text-center'>
+    <div className='jumbotron d-flex flex-column justify-content-center align-items-center'>
       <h1 className="display-5">
-        Kanji LiveSearch 
+        kanji live search 
       </h1>
-      <label className="search-label" htmlFor="search-input">
+      <div className="search-input-container" >
+      {searchIcon}
       <input 
         value={this.state.value}
         onChange={e => this.handleChange(e)}
         className='mt-4 search-input'
-        placeholder='english / japanese'
-      /> {searchIcon}
-      </label>
+        placeholder='どうぞ'
+      /> 
+      </div>
     </div>
 
     <div className="container mb-5">
@@ -136,6 +139,7 @@ class Home extends Component {
         readings={reading_matches}
         examples={example_matches}
         english={english_matches}
+        query={query}
       />
     </div>
 

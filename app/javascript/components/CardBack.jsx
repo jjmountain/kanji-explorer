@@ -14,6 +14,7 @@ class CardBack extends Component {
 
     // this is an array of the hashes which have hiragana - english key-value pairs
     const nestedHash = Object.values(kanji.examples)
+    console.log(nestedHash)
 
 
 
@@ -32,7 +33,7 @@ class CardBack extends Component {
           <td className='example-reading pb-1 pl-4'>{Object.keys(obj)[0]}</td>
         </tr>
         <tr>
-          <td colSpan="2" className='example-english pb-3'>{obj[Object.keys(obj)[0]][0].split(';')[0]}</td>
+          <td colSpan="2" className='example-english pb-3'>{obj[Object.keys(obj)[0]][0].split(';')[0].substring(0,38)}</td>
         </tr>
       </tbody>
     ));

@@ -10,7 +10,7 @@ class Kanji < ApplicationRecord
   pg_search_scope :search_by_character, against: [[ :character, 'A' ], [:kanji_radical, 'B']],
   using: {
     tsearch: {
-      any_word: true,
+      any_word: false,
       prefix: true
     }
   }
@@ -25,13 +25,14 @@ class Kanji < ApplicationRecord
   pg_search_scope :search_by_english, against: [ :english, :keyword ],
   using: {
     tsearch: {
-      any_word: true    }
+      any_word: false    }
   }
 
   pg_search_scope :search_by_example, against: [ :examples ],
   using: {
     tsearch: {
-      any_word: true,
+      any_word: false,
+      prefix: false
     }
   }
 
