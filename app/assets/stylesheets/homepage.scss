@@ -1,3 +1,183 @@
 // Place all the styles related to the Homepage controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.jumbotron {
+  background-color: whitesmoke;
+}
+
+/* The flip card container - set the width and height to whatever you want. We have added the border property to demonstrate that the flip itself goes out of the box on hover (remove perspective if you don't want the 3D effect */
+.flip-card {
+  background-color: transparent;
+  width: 315px;
+  height: 380px;
+  perspective: 1000px; /* Remove this if you don't want the 3D effect */
+  margin-bottom: 4rem;
+}
+
+/* This container is needed to position the front and back side */
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+  border: 1px solid #f1f1f1;
+  border-radius: .25rem;
+  box-shadow: 0 10px 35px rgba(50,50,93,.1),0 2px 15px rgba(0,0,0,.07);
+}
+
+/* Do an horizontal flip when you move the mouse over the flip box container */
+.flip-card:hover .flip-card-inner, .flip-card:active .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+/* Position the front and back side */
+.flip-card-front, .flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  background-color: ivory;
+}
+
+/* Style the front side (fallback if image is missing) */
+.flip-card-front {
+  color: black;
+}
+
+/* Style the back side */
+.flip-card-back {
+  color: black;
+  transform: rotateY(180deg);
+  position: relative;
+}
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.front-kanji {
+  font-size: 11rem;
+  flex-grow: 4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.front-english {
+  color: steelblue;
+  display: flex;
+  flex-grow: 1;
+}
+
+.kanji-details {
+  list-style-type: none;
+  color: dimgray;
+}
+
+.back-info {
+  display: flex;
+  align-items: center;
+}
+
+.back-kanji {
+  font-size: 11rem;
+
+}
+
+.top-info {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px;
+}
+
+.list-item-info {
+  list-style-type: none;
+}
+
+.example-kanji {
+  font-size: 1.5rem;
+  white-space: nowrap;
+}
+
+.example-reading {
+  font-size: 1rem;
+  white-space: nowrap;
+  color: black;
+  font-weight: lighter;
+}
+
+.examples-container {
+}
+
+.example-english {
+  color: steelblue;
+  font-size: 1rem;
+  font-weight: 200;
+}
+
+.back-kanji {
+  font-size: 2rem;
+  padding: 0.3rem 0.8rem;
+}
+
+.kanji-reading {
+  font-size: 0.8rem;
+  color: gray;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  font-weight: ligher;
+}
+
+.kanji-table {
+  /* border: 1px dashed grey; */
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  min-width: 110px;
+}
+
+.jlpt-info {
+  color: indianred;
+  font-size: 1.5rem;
+  padding-right: 1rem;
+}
+
+
+.search-input {
+  height: 3rem;
+  width: 250px;
+  text-align: center;
+  outline: none;
+  box-sizing: border-box;
+  /* font-style: italic; */
+  font-size: 1rem;
+  padding-left: 1rem;
+  text-indent: -20px;
+}
+
+.jumbotron {
+  padding: 2rem;
+}
+
+h1 {
+  font-weight: 200;
+}
+
+.search-icon {
+  color: grey;
+  font-size: 12px;
+}
+
+.search-input-container { position: relative; width: inherit; }
+
+.search-input-container .fa-search { 
+  position: absolute;
+  top: 42px;
+  left: 14px;
+  font-size: 12px;
+}
