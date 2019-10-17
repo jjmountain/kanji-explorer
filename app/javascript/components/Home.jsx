@@ -4,7 +4,6 @@ import { faSearch, spinner } from '@fortawesome/free-solid-svg-icons'
 import KanjiList from './KanjiList';
 import axios from 'axios';
 import './Home.css';
-import Typed from 'typed.js';
 
 
 class Home extends Component {
