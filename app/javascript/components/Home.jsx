@@ -64,7 +64,6 @@ class Home extends Component {
       })
       .then((res) => {
         this.setState({ 
-          loading: false,
           character_matches: {
             kanji: res.data.character_matches.kanjis,
             meta: res.data.character_matches.meta
@@ -80,13 +79,14 @@ class Home extends Component {
           example_matches: {
             kanji: res.data.example_matches.kanjis,
             meta: res.data.example_matches.meta
-          }
+          },
+          loading: false
+
          });
       })
       .catch((error) => {
         if (axios.isCancel(error) || error) {
           this.setState({
-            loading: false,
             message: `Failed to fetch results. Please check network. ${error.message}`
           });
         }
