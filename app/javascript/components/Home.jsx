@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSearch, spinner } from '@fortawesome/free-solid-svg-icons'
+import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import KanjiList from './KanjiList';
 import axios from 'axios';
 import './Home.css';
@@ -114,7 +114,7 @@ class Home extends Component {
   render() { 
 
     const searchIcon = <FontAwesomeIcon icon={faSearch} className='search-icon'/>
-    const { kanjis, character_matches, reading_matches, example_matches, english_matches, query } = this.state
+    const { kanjis, character_matches, reading_matches, example_matches, english_matches, query, loading } = this.state
     return ( 
       <>
     <div className='jumbotron d-flex flex-column justify-content-center align-items-center'>
@@ -139,6 +139,7 @@ class Home extends Component {
         examples={example_matches}
         english={english_matches}
         query={query}
+        loading={loading}
       />
     </div>
 
