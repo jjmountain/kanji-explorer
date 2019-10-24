@@ -6,8 +6,8 @@
 /* The flip card container - set the width and height to whatever you want. We have added the border property to demonstrate that the flip itself goes out of the box on hover (remove perspective if you don't want the 3D effect */
 .flip-card {
   background-color: transparent;
-  width: 315px;
-  height: 380px;
+  width: 125px;
+  height: 165px;
   perspective: 1000px; /* Remove this if you don't want the 3D effect */
   margin-bottom: 4rem;
 }
@@ -59,7 +59,7 @@
 }
 
 .front-kanji {
-  font-size: 11rem;
+  font-size: 4rem;
   flex-grow: 4;
   display: flex;
   align-items: center;
@@ -70,6 +70,7 @@
   color: steelblue;
   display: flex;
   flex-grow: 1;
+  font-weight: 200;
 }
 
 .kanji-details {

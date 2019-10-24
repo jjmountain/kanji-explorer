@@ -14,7 +14,9 @@ class KanjiList extends Component {
 
     if (Object.keys(matches).length && Object.keys(matches.kanji).length) {
       const kanjisToRender = matches.kanji.map(kanji => (
-        <div key={kanji.id} className='col-md-6 col-lg-4 d-flex justify-content-center'>
+        
+        <>
+        <div key={kanji.id} className='col-4 col-md-3 col-lg-2 d-flex justify-content-center'>
           <div className="flip-card">
             <div className="flip-card-inner">
               <CardFront kanji={kanji} />
@@ -22,6 +24,11 @@ class KanjiList extends Component {
            </div>
          </div>
         </div>
+        <div className="col-8 col-md-9 col-lg-10 d-flex">
+          <h1>Matched in:</h1>{console.log(Object.entries(kanji))}
+
+        </div>
+        </>
       ));
     
       return (
@@ -33,6 +40,10 @@ class KanjiList extends Component {
         </>
       )
     }
+  }
+
+  filterIt(arr, searchKey) {
+    return arr.filter(obj => Object.keys(obj).some(key => obj[key].includes(searchKey)));
   }
 
 
