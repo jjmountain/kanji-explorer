@@ -8,6 +8,12 @@ class ExampleResults extends Component {
     this.state = {  }
   }
 
+  removeDuplicates(myArr, prop) {
+    return myArr.filter((obj, pos, arr) => {
+        return arr.map(mapObj => mapObj[prop]).indexOf(obj[prop]) === pos;
+    });
+}
+
   findMatchesInExamples(arr, searchKey) {
     const { examples, query } = this.props;
     const matches = [];
@@ -20,7 +26,7 @@ class ExampleResults extends Component {
 
     // we want to end up with an array of the original objects where there are matches
 
-    arr.filter(obj => obj["example_english"].map(arr => arr.filter(str => str.includes(searchKey))))
+    // arr.filter(obj => obj["example_english"].map(arr => arr.filter(str => str.includes(searchKey))))
 
 
     arr.filter(obj => {
@@ -30,9 +36,15 @@ class ExampleResults extends Component {
         })
       })
     })
-    arr.filter(obj => Object.keys(obj).slice(0,2).some(key => obj[key].includes(searchKey) && matches.push(obj)));
-    const uniqueMatches = Array.from(new Set(matches))
-    const examplesToRender = uniqueMatches.map(example => (
+    // arr.filter(obj => Object.keys(obj).slice(0,2).some(key => obj[key].includes(searchKey) && matches.push(obj)));
+    // before mapping over them, check to see if the same example_kanji occurs more than once, don't allow this
+    // get an array of the unique kanji
+    // 
+
+    const distinctMatches = this.removeDuplicates(matches, "example_word")
+    
+    console.log(distinctMatches)
+    const examplesToRender = distinctMatches.map(example => (
       <li className='example-card'>
         <div className='example-kanji'>
           {example['example_word']}
@@ -66,7 +78,7 @@ class ExampleResults extends Component {
            </div>
          </div>
         </div>
-        <div className="col-8 col-md-9 col-lg-10 example-results d-flex align-items-center">
+        <div className="col-8 col-md-9 col-lg-10 example-results d-flex align-items-center flex-wrap">
           {this.findMatchesInExamples(kanji.examples, query)}
         </div>
         </>
