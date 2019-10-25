@@ -11,10 +11,6 @@ class Home extends Component {
     super(props);
     this.state = {
       query: '',
-      all_kanjis: {
-        kanjis: {},
-        meta: {}
-      },
       character_matches: {},
       reading_matches: {},
       english_matches: {},
@@ -26,25 +22,6 @@ class Home extends Component {
      };
      this.cancel = '';
   }
-
-  // when home component loads fetch from index and set state of kanjis to response
-
-  //  componentDidMount() {
-  //     const url = `/api/v1/kanjis/index/${this.state.query}`;
-  //     fetch(url)
-  //       .then(response => {
-  //         if (response.ok) {
-  //           return response.json();
-  //         }
-  //         throw new Error("Network response was not ok.");
-  //       })
-  //       .then(response => this.setState({ 
-  //         all_kanjis: {
-  //           kanjis: response.kanjis,
-  //           meta: response.meta
-  //         }})
-  //       .catch(() => this.props.history.push("/"));
-  //   }
 
     fetchSearchResults = async (updatedPageNumber = '', val) => {
 

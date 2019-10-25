@@ -3,12 +3,24 @@ import { Link } from 'react-router-dom';
 import './KanjiList.css';
 import CardFront from './CardFront';
 import CardBack from './CardBack';
+import ExampleResults from './ExampleResults';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 
 
 class KanjiList extends Component {
-  
+
+  // for examples of matched kanji, iterate through values array of objects 
+  // for each object check example_kanji for a match, then check example_reading, then example_english
+  // if a match is found with the query then return that key-value pair from the object
+  // go to the next iteration
+
+  findMatchesInExamples(arr, searchKey) {
+    const matches = [];
+    arr.filter(obj => Object.keys(obj).slice(0,2).some(key => obj[key].includes(searchKey) && matches.push(obj[key])));
+    arr.filter(obj => Object.keys(obj).slice(2).some(key => obj[key].forEach(str => str.includes(searchKey) && matches.push(str))));
+    return matches;
+  }
   
   renderSearchResults(matches, matchType) {
 
@@ -25,8 +37,7 @@ class KanjiList extends Component {
          </div>
         </div>
         <div className="col-8 col-md-9 col-lg-10 d-flex">
-          <h1>Matched in:</h1>{console.log(Object.entries(kanji))}
-
+          <p>Found in:</p>{console.log(Object.entries(kanji))}
         </div>
         </>
       ));
@@ -42,28 +53,24 @@ class KanjiList extends Component {
     }
   }
 
-  filterIt(arr, searchKey) {
-    return arr.filter(obj => Object.keys(obj).some(key => obj[key].includes(searchKey)));
-  }
-
-
   render() {
-    const { characters, readings, examples, english, loading } = this.props;
+    const { characters, readings, examples, english, loading, query } = this.props;
     const loadingIcon = <FontAwesomeIcon icon={faSpinner} className='spinner' spin  />
        
       if (loading) {
         return (
-          <div class="d-flex justify-content-center">
+          <div className="d-flex justify-content-center">
             {loadingIcon}            
           </div>
         );
       } else {
           return (
             <div>
-              {this.renderSearchResults(characters, 'characters')}
-              {this.renderSearchResults(readings, 'readings')}
-              {this.renderSearchResults(examples, 'examples')}
-              {this.renderSearchResults(english, 'keyword')}
+              {/* {this.renderSearchResults(characters, 'characters')} */}
+              {/* {this.renderSearchResults(readings, 'readings')} */}
+              <ExampleResults examples={examples} query={query} />
+              {/* {this.renderSearchResults(examples, 'examples')} */}
+              {/* {this.renderSearchResults(english, 'keyword')} */}
             </div>
           );
       }

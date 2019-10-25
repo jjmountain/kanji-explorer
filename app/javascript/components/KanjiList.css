@@ -145,11 +145,37 @@
   padding-right: 1rem;
 }
 
-.search-results {
-  
+.example-results {
+  overflow:scroll;
+  height: 10rem;
 }
 
 .spinner {
   font-size: 70px;
   color: turquoise;
+}
+
+.example-card {
+  list-style-type: none;
+  display: inline-flex;
+  flex-direction: column;
+  height: 3rem;
+  margin: 1rem;
+  padding: 2rem;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 10px 35px rgba(50,50,93,.1),0 2px 15px rgba(0,0,0,.07);
+  border-radius: 0.2rem;
+}
+
+.example_match {
+  font-size: 0.8rem;
+  color: darkgrey;
+  font-weight: 200;
+
+}
+
+.example-kanji {
+  font-size: 1.5rem;
+  font-weight: 200;
 }

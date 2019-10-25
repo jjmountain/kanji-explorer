@@ -58,7 +58,6 @@ end
 ## str_entry is a string with lots of examples. each example is separated by <br>
 
 def generate_examples_array(str_entry)
-
   # if there are multiple examples, 
   new_examples_array = []
   if str_entry.include?('<br')
@@ -91,8 +90,8 @@ def build_reading_hash(example, example_hash)
   english_array = split_array[1].split(/\([0-9]+\)/)
   english_array.map! { |entry| entry.strip }
   english_array.delete("")
+  english_array.map! { |entry| entry.split(';') }.map! { |array| array.map { |str| str.strip } }
   reading_str = split_array[0].split(/\(/)[1].delete(')')
-  key_name = "example_reading"
   example_hash["example_reading"] = reading_str
   example_hash["example_english"] = english_array
   return example_hash
