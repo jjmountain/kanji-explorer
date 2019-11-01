@@ -5,7 +5,9 @@ import CardFront from './CardFront';
 class ExampleResults extends Component {
   constructor(props) {
     super(props);
-    this.state = {  }
+    this.state = { 
+      showFurigana: false
+     }
   }
 
   removeDuplicates(myArr, prop) {
@@ -18,28 +20,18 @@ class ExampleResults extends Component {
     const { examples, query } = this.props;
     const matches = [];
 
-    // arr is an array of objects -> each object has three keys: example_kanji, example_reading, example_english
-    // look at first object, return an array of three keys
-    // get the last key in an array --> ['example_english']
-    // use that key to read inside the 3 objects
-    // 
-
-    // we want to end up with an array of the original objects where there are matches
-
     // arr.filter(obj => obj["example_english"].map(arr => arr.filter(str => str.includes(searchKey))))
 
 
     arr.filter(obj => {
       obj['example_english'].some(arr => {
         arr.some(str => {
-          str.includes(searchKey) && matches.push({example_word: obj["example_kanji"], example_match: str})
+          str.toLowerCase().includes(searchKey.toLowerCase()) && matches.push({example_word: obj["example_kanji"], example_match: str, example_reading: obj["example_reading"]})
         })
       })
     })
-    // arr.filter(obj => Object.keys(obj).slice(0,2).some(key => obj[key].includes(searchKey) && matches.push(obj)));
-    // before mapping over them, check to see if the same example_kanji occurs more than once, don't allow this
-    // get an array of the unique kanji
-    // 
+
+    console.log(matches)
 
     const distinctMatches = this.removeDuplicates(matches, "example_word")
     
@@ -78,7 +70,7 @@ class ExampleResults extends Component {
            </div>
          </div>
         </div>
-        <div className="col-8 col-md-9 col-lg-10 example-results d-flex align-items-center flex-wrap">
+        <div className="col-8 col-md-9 col-lg-10 example-results d-flex flex-wrap">
           {this.findMatchesInExamples(kanji.examples, query)}
         </div>
         </>
