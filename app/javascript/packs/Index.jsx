@@ -11,8 +11,6 @@ import 'bootstrap/dist/js/bootstrap.bundle.min';
 import App from '../components/App';
 import { BrowserRouter } from 'react-router-dom';
 
-console.log('in index of packs')
-
 document.addEventListener('DOMContentLoaded', () => {
   render(
     <BrowserRouter>

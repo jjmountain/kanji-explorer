@@ -18,4 +18,3 @@
 //= require popper
 //= require bootstrap-sprockers
 
-console.log('Hello World from Webpacker')

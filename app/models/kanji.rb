@@ -18,7 +18,8 @@ class Kanji < ApplicationRecord
   pg_search_scope :search_by_reading, against: [ :onyomi, :kunyomi ],
   using: {
     tsearch: {
-      any_word: true
+      any_word: false,
+      prefix: true
     }
   }
 

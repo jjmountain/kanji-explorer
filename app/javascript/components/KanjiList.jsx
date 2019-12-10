@@ -4,6 +4,7 @@ import './KanjiList.css';
 import CardFront from './CardFront';
 import CardBack from './CardBack';
 import ExampleResults from './ExampleResults';
+import ReadingResults from './ReadingResults';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 
@@ -37,7 +38,7 @@ class KanjiList extends Component {
          </div>
         </div>
         <div className="col-8 col-md-9 col-lg-10 d-flex">
-          <p>Found in:</p>{console.log(Object.entries(kanji))}
+          <p>Found in:</p>{Object.entries(kanji)}
         </div>
         </>
       ));
@@ -54,7 +55,7 @@ class KanjiList extends Component {
   }
 
   render() {
-    const { characters, readings, examples, english, loading, query } = this.props;
+    const { characters, readings, examples, english, loading, query, furigana } = this.props;
     const loadingIcon = <FontAwesomeIcon icon={faSpinner} className='spinner' spin  />
        
       if (loading) {
@@ -68,7 +69,8 @@ class KanjiList extends Component {
             <div>
               {/* {this.renderSearchResults(characters, 'characters')} */}
               {/* {this.renderSearchResults(readings, 'readings')} */}
-              <ExampleResults examples={examples} query={query} />
+              <ExampleResults examples={examples} query={query} furigana={furigana} />
+              {/* <ReadingResults readings={readings} query={query} /> */}
               {/* {this.renderSearchResults(examples, 'examples')} */}
               {/* {this.renderSearchResults(english, 'keyword')} */}
             </div>

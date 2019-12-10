@@ -177,7 +177,12 @@
   font-size: 0.8rem;
   color: white;
   font-weight: 200;
+}
 
+.example-furigana {
+  font-size: 0.8rem;
+  color: #lightgrey;
+  font-weight: 200;
 }
 
 .example-kanji {

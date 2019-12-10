@@ -102,7 +102,8 @@ def generate_entry_array(str_entry)
 end
 
 def generate_entry_array_japanese_comma(str_entry)
-  str_entry.split('、')
+  entries_arr = str_entry.split('、')
+  entries_arr.map { |reading| reading.gsub(/\./, '')}
 end
 
 

@@ -18,9 +18,12 @@ class Home extends Component {
       example_matches: {},
       loading: false,
       resultsMessage: '',
-      message: ''
+      message: '',
+      showFurigana: true
      };
      this.cancel = '';
+
+     this.toggleFurigana = this.toggleFurigana.bind(this);
   }
 
     fetchSearchResults = async (updatedPageNumber = '', val) => {
@@ -88,14 +91,20 @@ class Home extends Component {
     }
   };
 
+  toggleFurigana() {
+    this.setState(state => ({
+      showFurigana: !state.showFurigana
+    }));
+  }
+
   render() { 
 
     const searchIcon = <FontAwesomeIcon icon={faSearch} className='search-icon'/>
-    const { kanjis, character_matches, reading_matches, example_matches, english_matches, query, loading } = this.state
+    const { kanjis, character_matches, reading_matches, example_matches, english_matches, query, loading, showFurigana } = this.state
     return ( 
       <>
     <div className='jumbotron d-flex flex-column justify-content-center align-items-center'>
-      <h1 className="display-5">
+      <h1>
         kanji live search 
       </h1>
       <div className="search-input-container" >
@@ -107,6 +116,7 @@ class Home extends Component {
         placeholder='どうぞ'
       /> 
       </div>
+      <button onClick={this.toggleFurigana} className='btn btn-outline-light mt-4'>{this.state.showFurigana ? 'Hide Furigana' : 'Show Furigana'}</button>
     </div>
 
     <div className="container mb-5">
@@ -117,6 +127,7 @@ class Home extends Component {
         english={english_matches}
         query={query}
         loading={loading}
+        furigana={showFurigana}
       />
     </div>
 
